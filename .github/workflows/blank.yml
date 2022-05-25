@@ -9,7 +9,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '*/10 * * * *'
 
   pull_request:
     branches: [ main ]
@@ -30,26 +30,24 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: first commit
-        run: |
-          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > dump.md
+        run: date >> dump.md
 
       # Runs a set of commands using the runners shell
       - name: second commit
         run: |
           git add .
-          git config user.name 'TDR-3000'
-          git config user.email 'jannin751@gmail.com'
-          git commit -m "null"
+          git config user.name 'FajarTheGGman'
+          git config user.email 'newstrooper731@gmail.com'
+          git commit -m "penghijauan"
           git push 
           
       - name: third commit
-        run: sed -i '$d' dump.md
+        run: sed -i '$ d' dump.md
         
       - name: finishing
         run: |
           git add .
-          git config user.name 'TDR-3000'
-          git config user.email 'jannin751@gmail.com'
-          git commit -m "null"
+          git config user.name 'FajarTheGGman'
+          git config user.email 'newstrooper731@gmail.com'
+          git commit -m "penghijauan"
           git push 
