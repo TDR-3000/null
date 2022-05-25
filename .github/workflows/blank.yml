@@ -9,7 +9,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 */6 * * *'
 
   pull_request:
     branches: [ main ]
@@ -32,7 +32,7 @@ jobs:
       - name: first commit
         run: |
           d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > null.md
+          echo $d > dump.md
 
       # Runs a set of commands using the runners shell
       - name: second commit
@@ -44,9 +44,7 @@ jobs:
           git push 
           
       - name: third commit
-        run: |
-          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > null.md
+        run: sed -i '$d' dump.md
         
       - name: finishing
         run: |
