@@ -42,7 +42,7 @@ jobs:
           git push 
           
       - name: third commit
-        run: sed -i 'date' null.md
+        run: sed -i '$ d' null.md
         
       - name: finishing
         run: |
