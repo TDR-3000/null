@@ -1,31 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
 name: CI
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches:
-      - [ main ]
+    branches: [ main ]
+  workflow_dispatch:
   schedule:
     - cron: '*/1 * * * *'
+
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  auto_commit:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      - name: Modify LAST_UPDATED file
+
+      # Runs a single command using the runners shell
+      - name: first commit
         run: |
           d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > LAST_UPDATED
-      - name: Commit changes
+          echo $d > null.md
+
+      # Runs a set of commands using the runners shell
+      - name: second commit
         run: |
-          git config --local user.email "jannin751@gmail.com"
-          git config --local user.name "TDR-3000"
-          git add -A
+          git add .
+          git config user.name 'TDR-3000'
+          git config user.email 'jannin751@gmail.com'
           git commit -m "null"
-      - name: Push Back
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          force: true
-          directory: '.'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git push 
+          
+      - name: third commit
+        run: |
+          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
+          echo $d > null.md
+        
+      - name: finishing
+        run: |
+          git add .
+          git config user.name 'TDR-3000'
+          git config user.email 'jannin751@gmail.com'
+          git commit -m "null"
+          git push 
